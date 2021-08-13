@@ -23,7 +23,7 @@ def Downloader(update,context):
         link=str(update.message.text)
 
         Video_Url = YouTube(link)
-        Video= Video_Url.streams.first()
+        Video= Video_Url.streams.get_highest_resolution()
         Video.download()
         updater.bot.send_video(chat_id=update.message.chat_id, video=open(f'{Video.title}.mp4', 'rb'), supports_streaming=True,filename=f"{Video.title}" ,caption=Video.title)
         print("Done")
